@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import {
   FormControl,
   FormGroup,
@@ -12,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 import { AuthService } from '../../services/auth.service';
+import { IdiomaService } from '../../services/idioma.service';
 
 @Component({
   selector: 'app-login',
@@ -21,14 +23,18 @@ import { AuthService } from '../../services/auth.service';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   mensajeError = '';
+  verPassword = false;
+  idiomaActual = 'es';
+  textos: any = {};
 
   formulario = new FormGroup({
     email: new FormControl('', [
@@ -41,8 +47,35 @@ export class LoginComponent {
   });
 
   constructor(
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private idiomaService: IdiomaService
+  ) { }
+
+  ngOnInit(): void {
+
+    this.idiomaActual = this.idiomaService.getIdiomaActual();
+
+    this.cargarIdioma(this.idiomaActual);
+  }
+
+  cargarIdioma(idioma: string) {
+
+    this.idiomaService.cargarIdioma(idioma).subscribe({
+      next: (respuesta) => {
+
+        this.idiomaActual = idioma;
+
+        this.textos = respuesta;
+      }
+    });
+  }
+
+  cambiarIdioma(evento: Event) {
+
+    const selector = evento.target as HTMLSelectElement;
+
+    this.cargarIdioma(selector.value);
+  }
 
   login() {
 
@@ -70,7 +103,7 @@ export class LoginComponent {
 
       error: () => {
 
-        this.mensajeError = 'Correo electrónico o contraseña incorrectos';
+        this.mensajeError = this.textos.login?.credencialesInvalidas;
       }
     });
   }
@@ -78,6 +111,11 @@ export class LoginComponent {
   iniciarSso() {
 
     this.authService.iniciarSso();
+  }
+
+  togglePassword() {
+
+    this.verPassword = !this.verPassword;
   }
 
 }

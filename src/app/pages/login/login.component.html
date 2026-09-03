@@ -10,113 +10,181 @@
 
   </section>
 
-  <section class="login__contenido">
 
-    <div class="login__logos">
+  <section class="login__panel">
+
+    <div class="login__contenido">
 
       <img
-        class="login__logo-rd"
+        class="login__logo-principal"
         src="assets/images/logos/Logo-RD.svg"
-        alt="Logo RD"
+        alt="Realdooh"
       >
 
-      <img
-        class="login__logo-econocom"
-        src="assets/images/logos/Econocom.svg"
-        alt="Econocom"
-      >
+
+      <div class="login__formulario-contenedor">
+
+        <p class="login__subtitulo">
+          {{ textos.login?.titulo }}
+        </p>
+
+
+        <form
+          class="login__formulario"
+          [formGroup]="formulario"
+          (ngSubmit)="login()"
+        >
+
+
+          <mat-form-field
+            appearance="outline"
+            class="login__campo"
+          >
+
+            <mat-label>
+              {{ textos.login?.email }}
+            </mat-label>
+
+            <input
+              matInput
+              type="email"
+              formControlName="email"
+            >
+
+            <mat-error
+              *ngIf="formulario.get('email')?.hasError('required')"
+            >
+              {{ textos.login?.emailObligatorio }}
+            </mat-error>
+
+            <mat-error
+              *ngIf="formulario.get('email')?.hasError('email')"
+            >
+              {{ textos.login?.emailInvalido }}
+            </mat-error>
+
+          </mat-form-field>
+
+
+          <mat-form-field
+            appearance="outline"
+            class="login__campo"
+          >
+
+            <mat-label>
+              {{ textos.login?.password }}
+            </mat-label>
+
+            <input
+              matInput
+              [type]="verPassword ? 'text' : 'password'"
+              formControlName="password"
+            >
+
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              (click)="togglePassword()"
+            >
+
+              <mat-icon>
+                {{ verPassword ? 'visibility_off' : 'visibility' }}
+              </mat-icon>
+
+            </button>
+
+            <mat-error
+              *ngIf="formulario.get('password')?.hasError('required')"
+            >
+              {{ textos.login?.passwordObligatorio }}
+            </mat-error>
+
+          </mat-form-field>
+
+
+          <p
+            *ngIf="mensajeError"
+            class="login__error"
+          >
+            {{ mensajeError }}
+          </p>
+
+
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            class="login__boton login__boton--principal"
+          >
+            {{ textos.login?.entrar }}
+          </button>
+
+
+          <p class="login__texto-acceso">
+            {{ textos.login?.otrasFormas }}
+          </p>
+
+
+          <button
+            mat-flat-button
+            type="button"
+            class="login__boton login__boton--sso"
+            (click)="iniciarSso()"
+          >
+            {{ textos.login?.entrarSso }}
+          </button>
+
+
+          <p class="login__registro">
+
+            {{ textos.login?.noCuenta }}
+
+            <a href="#">
+              <u>{{ textos.login?.registrate }}</u>
+            </a>
+
+          </p>
+
+        </form>
+
+      </div>
 
     </div>
 
-    <div class="login__formulario">
 
-      <h1 class="heading--2">
-        Iniciar sesión
-      </h1>
+    <div class="login__footer">
 
-      <form
-        [formGroup]="formulario"
-        (ngSubmit)="login()"
+      <div class="login__idioma">
+
+        <mat-icon class="login__idioma-icono">
+          language
+        </mat-icon>
+
+        <span>
+          {{ textos.login?.idioma }}
+        </span>
+
+        <select
+          class="login__idioma-select"
+          [value]="idiomaActual"
+          (change)="cambiarIdioma($event)"
+          aria-label="Idioma"
+        >
+          <option value="es">ES</option>
+          <option value="en">EN</option>
+          <option value="fr">FR</option>
+          <option value="pt">PT</option>
+        </select>
+
+      </div>
+
+
+      <img
+        class="login__logo-secundario"
+        src="assets/images/logos/Econocom.svg"
+        alt="Econocom"
       >
-
-        <mat-form-field
-          appearance="outline"
-          class="login__campo"
-        >
-
-          <mat-label>
-            Correo electrónico
-          </mat-label>
-
-          <input
-            matInput
-            type="email"
-            formControlName="email"
-          >
-
-          <mat-error
-            *ngIf="formulario.get('email')?.hasError('required')"
-          >
-            El correo electrónico es obligatorio
-          </mat-error>
-
-          <mat-error
-            *ngIf="formulario.get('email')?.hasError('email')"
-          >
-            Introduce un correo electrónico válido
-          </mat-error>
-
-        </mat-form-field>
-
-        <mat-form-field
-          appearance="outline"
-          class="login__campo"
-        >
-
-          <mat-label>
-            Contraseña
-          </mat-label>
-
-          <input
-            matInput
-            type="password"
-            formControlName="password"
-          >
-
-          <mat-error
-            *ngIf="formulario.get('password')?.hasError('required')"
-          >
-            La contraseña es obligatoria
-          </mat-error>
-
-        </mat-form-field>
-
-        <p
-          *ngIf="mensajeError"
-          class="login__error"
-        >
-          {{ mensajeError }}
-        </p>
-
-        <button
-          mat-flat-button
-          color="primary"
-          type="submit"
-          class="login__boton"
-        >
-          ENTRAR
-        </button>
-
-        <button
-          mat-stroked-button
-          type="button"
-          class="login__boton login__boton--sso"
-          (click)="iniciarSso()"
-        >
-          Iniciar sesión con SSO
-        </button>
-
-      </form>
 
     </div>
 
