@@ -1,0 +1,125 @@
+<div class="login">
+
+  <section class="login__visual">
+
+    <img
+      class="login__ilustracion"
+      src="assets/images/login.svg"
+      alt="Login"
+    >
+
+  </section>
+
+  <section class="login__contenido">
+
+    <div class="login__logos">
+
+      <img
+        class="login__logo-rd"
+        src="assets/images/logos/Logo-RD.svg"
+        alt="Logo RD"
+      >
+
+      <img
+        class="login__logo-econocom"
+        src="assets/images/logos/Econocom.svg"
+        alt="Econocom"
+      >
+
+    </div>
+
+    <div class="login__formulario">
+
+      <h1 class="heading--2">
+        Iniciar sesión
+      </h1>
+
+      <form
+        [formGroup]="formulario"
+        (ngSubmit)="login()"
+      >
+
+        <mat-form-field
+          appearance="outline"
+          class="login__campo"
+        >
+
+          <mat-label>
+            Correo electrónico
+          </mat-label>
+
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+          >
+
+          <mat-error
+            *ngIf="formulario.get('email')?.hasError('required')"
+          >
+            El correo electrónico es obligatorio
+          </mat-error>
+
+          <mat-error
+            *ngIf="formulario.get('email')?.hasError('email')"
+          >
+            Introduce un correo electrónico válido
+          </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field
+          appearance="outline"
+          class="login__campo"
+        >
+
+          <mat-label>
+            Contraseña
+          </mat-label>
+
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+          >
+
+          <mat-error
+            *ngIf="formulario.get('password')?.hasError('required')"
+          >
+            La contraseña es obligatoria
+          </mat-error>
+
+        </mat-form-field>
+
+        <p
+          *ngIf="mensajeError"
+          class="login__error"
+        >
+          {{ mensajeError }}
+        </p>
+
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          class="login__boton"
+        >
+          ENTRAR
+        </button>
+
+        <button
+          mat-stroked-button
+          type="button"
+          class="login__boton login__boton--sso"
+          (click)="iniciarSso()"
+        >
+          Iniciar sesión con SSO
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+</div>
