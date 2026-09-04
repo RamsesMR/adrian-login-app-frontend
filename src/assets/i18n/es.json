@@ -21,5 +21,10 @@
     "error": "Error en la autenticación SSO",
     "titulo": "Autenticación SSO",
     "volver": "Volver al inicio de sesión"
-  }
+  },
+  "inicio": {
+  "titulo": "Inicio de sesión correcto",
+  "mensaje": "Usuario autenticado correctamente.",
+  "cerrarSesion": "CERRAR SESIÓN"
+}
 }

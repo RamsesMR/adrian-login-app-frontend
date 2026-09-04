@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { AuthService } from '../../services/auth.service';
 import { IdiomaService } from '../../services/idioma.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -48,7 +49,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private idiomaService: IdiomaService
+    private idiomaService: IdiomaService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -99,6 +101,7 @@ export class LoginComponent implements OnInit {
         console.log('Login correcto', respuesta);
 
         this.mensajeError = '';
+        this.router.navigate(['/inicio']);
       },
 
       error: () => {

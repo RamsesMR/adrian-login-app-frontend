@@ -3,7 +3,7 @@ Requisitos
 - Maven
 - Node 18
 - Angular CLI 16.2.16
-- MySQL 5 o MySQL8
+- MySQL 5 o MySQL 8
 
 Backend
 - Configuración BBDD

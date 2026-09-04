@@ -13,7 +13,7 @@ export class AuthService {
 
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   login(datos: Login): Observable<AuthResponse> {
 
@@ -23,15 +23,29 @@ export class AuthService {
     );
   }
 
+  validarToken(token: string): Observable<string> {
+
+    return this.http.post(
+      `${this.apiUrl}/validate`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        responseType: 'text'
+      }
+    );
+  }
+
   iniciarSso() {
 
     window.location.href = `${this.apiUrl}/sso`;
   }
 
-  callbackSso(codigo: string): Observable<AuthResponse> {
+  callbackSso(codigo: string, email: string): Observable<AuthResponse> {
 
     return this.http.get<AuthResponse>(
-      `${this.apiUrl}/sso/callback?code=${codigo}`
+      `${this.apiUrl}/sso/callback?code=${codigo}&email=${email}`
     );
   }
 

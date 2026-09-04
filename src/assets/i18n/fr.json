@@ -21,5 +21,10 @@
     "error": "Erreur d'authentification SSO",
     "titulo": "Authentification SSO",
     "volver": "Retour à la connexion"
-  }
+  },
+  "inicio": {
+  "titulo": "Connexion réussie",
+  "mensaje": "Utilisateur authentifié correctement.",
+  "cerrarSesion": "SE DÉCONNECTER"
+}
 }

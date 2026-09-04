@@ -21,5 +21,10 @@
     "error": "Erro na autenticação SSO",
     "titulo": "Autenticação SSO",
     "volver": "Voltar ao início de sessão"
-  }
+  },
+  "inicio": {
+  "titulo": "Login efetuado com sucesso",
+  "mensaje": "Utilizador autenticado com sucesso.",
+  "cerrarSesion": "TERMINAR SESSÃO"
+}
 }
